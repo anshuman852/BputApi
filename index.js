@@ -2,8 +2,9 @@ const axios = require("axios").default;
 const express = require("express");
 const cheerio = require("cheerio");
 const cheerioTableparser = require("cheerio-tableparser");
+const olddata = require("./old.json");
 const app = express();
-app.get("/news", async (req, res) => {
+app.get("/bput/news", async (req, res) => {
   try {
     axios.get("http://bput.ac.in/news.php").then(async resp => {
       $ = cheerio.load(resp.data);
@@ -36,10 +37,11 @@ app.get("/news", async (req, res) => {
       res.send(JSON.stringify(message, null, 4));
     });
   } catch {
+    res.status(404);
     res.send("No idea");
   }
 });
-app.get("/exam", async (req, res) => {
+app.get("/bput/exam", async (req, res) => {
   try {
     axios.get("http://bput.ac.in/exam-info.php").then(async resp => {
       $ = cheerio.load(resp.data);
