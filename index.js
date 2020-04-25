@@ -2,8 +2,23 @@ const axios = require("axios").default;
 const express = require("express");
 const cheerio = require("cheerio");
 const cheerioTableparser = require("cheerio-tableparser");
-const olddata = require("./old.json");
+const dateFormat = require('dateformat');
 const app = express();
+app.use(cors());
+
+/**
+ * @api {get} /bput/news
+ * @apiName GetNews
+ * @apiGroup News
+ * @apiSuccessExample {json} Success-Response:
+ *      {
+ *       "num": "1",
+ *       "date": "18-04-2020",
+ *       "title": "Notice for second extension of last date of bid submission for procurement of Scanning Electron Microscope for TEQIP-III, BPUT, Odisha",
+ *       "link": "https://drive.google.com/open?id=1vnkK79GGLSjGxmRksIN3imchrXzNXB-b"
+ *      }
+ *
+ */
 app.get("/bput/news", async (req, res) => {
   try {
     axios.get("http://bput.ac.in/news.php").then(async resp => {
@@ -19,6 +34,7 @@ app.get("/bput/news", async (req, res) => {
         date = cheerio
           .load(data[1][i])("span")
           .text();
+        date=(date, dateFormat())
         titledata = data[2][i];
         title = cheerio
           .load(titledata)("a")
@@ -41,6 +57,19 @@ app.get("/bput/news", async (req, res) => {
     res.send("No idea");
   }
 });
+/**
+ * @api {get} /bput/exam
+ * @apiName GetExam
+ * @apiGroup ExamNotice
+ * @apiSuccessExample {json} Success-Response:
+ *      {
+ *       "num": "1",
+ *       "date": "18-04-2020",
+ *       "title": "Notice for second extension of last date of bid submission for procurement of Scanning Electron Microscope for TEQIP-III, BPUT, Odisha",
+ *       "link": "https://drive.google.com/open?id=1vnkK79GGLSjGxmRksIN3imchrXzNXB-b"
+ *      }
+ *
+ */
 app.get("/bput/exam", async (req, res) => {
   try {
     axios.get("http://bput.ac.in/exam-info.php").then(async resp => {

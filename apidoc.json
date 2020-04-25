@@ -1,0 +1,10 @@
+{
+  "name": "Api",
+  "version": "0.1.0",
+  "description": "Apis Written By Anshuman",
+  "sampleUrl":"https://api.ansuman.codes",
+  "template": {
+  "withCompare": false
+  },
+  "url":"https://api.ansuman.codes"
+  }
