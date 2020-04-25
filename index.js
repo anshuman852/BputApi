@@ -4,6 +4,7 @@ const cheerio = require("cheerio");
 const cheerioTableparser = require("cheerio-tableparser");
 const dateFormat = require('dateformat');
 const app = express();
+const cors=require('cors');
 app.use(cors());
 
 /**
